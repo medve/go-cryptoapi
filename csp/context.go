@@ -65,6 +65,24 @@ func EnumProviders() (res []CryptoProvider, err error) {
 	return
 }
 
+// FindProvider searches for provider with given ProvType in available providers
+// and returns it. Would return nil if provider have not been not found.
+func FindProvider(provType ProvType) (*CryptoProvider, error) {
+	provs, err := EnumProviders()
+
+	if err != nil {
+		return nil, err
+	}
+
+	var prov CryptoProvider
+	for _, prov = range provs {
+		if prov.Type == provType {
+			return &prov, nil
+		}
+	}
+	return nil, nil
+}
+
 // AcquireCtx acquires new CSP context from container name, provider name,
 // type and flags. Empty strings for container and provider
 // names are typically used for CryptVerifyContext flag setting. Created context

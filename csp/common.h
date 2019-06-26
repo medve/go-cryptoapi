@@ -4,16 +4,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#ifdef _WIN32
-#   define BOOL WINBOOL 
-#   include <windows.h>
-#   include <wincrypt.h>
-#   include <winerror.h>
-#else
-#   define HCRYPTPROV_OR_NCRYPT_KEY_HANDLE HCRYPTPROV
-#   include <CSP_WinDef.h>
-#   include <CSP_WinCrypt.h>
+#include <stdlib.h>
+#include <CSP_WinDef.h>
+#include <CSP_WinCrypt.h>
+// some strange dirty things are happening here
+#define UNIX 1
+#define CSP_LITE 1
+#include <WinCryptEx.h>
+#define MY_ENC_TYPE (X509_ASN_ENCODING | PKCS_7_ASN_ENCODING)
+#define BLOCK_LENGTH 4096
 #endif
 
-#define MY_ENC_TYPE (X509_ASN_ENCODING | PKCS_7_ASN_ENCODING)
-#endif
